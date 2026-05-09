@@ -16,6 +16,7 @@
     <color name="coach_gold">#D4AF37</color>
     <color name="coach_gold_light">#F0CC53</color>
     <color name="coach_emerald">#10785C</color>
+    <color name="coach_gold_dark">#7A5F1F</color>
     <color name="coach_emerald_dark">#054032</color>
 
     <!-- Aurora gradient stops -->
