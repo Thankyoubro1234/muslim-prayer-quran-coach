@@ -90,89 +90,99 @@ class PrayerRepository(private val ctx: Context) {
     suspend fun setQuranFontSize(sz: Int) = ctx.dataStore.edit { it[K_QURAN_FONT_SIZE] = sz }
 
 
+
     // === Coach + Memorize extensions ===
-    private val K_MEMORIZED_JUZ = androidx.datastore.preferences.core.stringPreferencesKey("memorized_juz_map")
-    private val K_READING_LAST_DATE = androidx.datastore.preferences.core.longPreferencesKey("reading_last_date")
-    private val K_READING_STREAK = androidx.datastore.preferences.core.intPreferencesKey("reading_streak")
+    private val K_MEMORIZED_JUZ = stringPreferencesKey("memorized_juz_map")
+    private val K_READING_LAST_DATE = longPreferencesKey("reading_last_date")
+    private val K_READING_STREAK = intPreferencesKey("reading_streak")
 
     private val JUZ_VERSE_COUNTS = intArrayOf(
-    148, 111, 125, 131, 124, 111, 149, 142, 159, 127,
-    151, 170, 154, 227, 185, 269, 190, 202, 339, 171,
-    178, 169, 357, 175, 246, 195, 399, 137, 431, 564
+        148, 111, 125, 131, 124, 111, 149, 142, 159, 127,
+        151, 170, 154, 227, 185, 269, 190, 202, 339, 171,
+        178, 169, 357, 175, 246, 195, 399, 137, 431, 564
     )
 
+    private suspend fun parseMemorizedMap(): MutableMap<Int, Int> {
+        val raw = ctx.dataStore.data.first()[K_MEMORIZED_JUZ] ?: ""
+        val out = mutableMapOf<Int, Int>()
+        for (entry in raw.split(",")) {
+            val kv = entry.split("=")
+            if (kv.size == 2) {
+                val k = kv[0].toIntOrNull()
+                val v = kv[1].toIntOrNull()
+                if (k != null && v != null) out[k] = v
+            }
+        }
+        return out
+    }
+
     suspend fun getJuzProgress(juz: Int): Pair<Int, Int> {
-    val map = ctx.dataStore.data.first()[K_MEMORIZED_JUZ] ?: ""
-    val parts = map.split(",").mapNotNull {
-        val kv = it.split("=")
-        if (kv.size == 2) kv[0].toIntOrNull()?.let { k -> k to (kv[1].toIntOrNull() ?: 0) } else null
-    }.toMap()
-    val total = JUZ_VERSE_COUNTS.getOrNull(juz - 1) ?: 0
-    return Pair(parts[juz] ?: 0, total)
+        val parts = parseMemorizedMap()
+        val total = if (juz in 1..30) JUZ_VERSE_COUNTS[juz - 1] else 0
+        return Pair(parts[juz] ?: 0, total)
     }
 
     suspend fun setJuzMemorized(juz: Int, count: Int) {
-    val map = ctx.dataStore.data.first()[K_MEMORIZED_JUZ] ?: ""
-    val parts = map.split(",").mapNotNull {
-        val kv = it.split("=")
-        if (kv.size == 2) kv[0].toIntOrNull()?.let { k -> k to (kv[1].toIntOrNull() ?: 0) } else null
-    }.toMutableMap()
-    parts[juz] = count
-    val newMap = parts.entries.joinToString(",") { "${it.key}=${it.value}" }
-    ctx.dataStore.edit { it[K_MEMORIZED_JUZ] = newMap }
+        val parts = parseMemorizedMap()
+        parts[juz] = count
+        val joined = parts.entries.joinToString(",") { e -> "${e.key}=${e.value}" }
+        ctx.dataStore.edit { prefs -> prefs[K_MEMORIZED_JUZ] = joined }
     }
 
     suspend fun getMemorizedCount(): Int {
-    val map = ctx.dataStore.data.first()[K_MEMORIZED_JUZ] ?: ""
-    return map.split(",").mapNotNull {
-        val kv = it.split("=")
-        if (kv.size == 2) kv[1].toIntOrNull() else null
-    }.sum()
+        return parseMemorizedMap().values.sum()
     }
 
     suspend fun getReadingStreak(): Int {
-    val streak = ctx.dataStore.data.first()[K_READING_STREAK] ?: 0
-    val last = ctx.dataStore.data.first()[K_READING_LAST_DATE] ?: 0L
-    val now = System.currentTimeMillis()
-    val daysSince = (now - last) / (1000L * 60 * 60 * 24)
-    return if (daysSince > 1) 0 else streak
+        val streak = ctx.dataStore.data.first()[K_READING_STREAK] ?: 0
+        val last = ctx.dataStore.data.first()[K_READING_LAST_DATE] ?: 0L
+        val now = System.currentTimeMillis()
+        val daysSince = (now - last) / (1000L * 60 * 60 * 24)
+        return if (daysSince > 1) 0 else streak
     }
 
     suspend fun markReadToday() {
-    val now = System.currentTimeMillis()
-    val last = ctx.dataStore.data.first()[K_READING_LAST_DATE] ?: 0L
-    val streak = ctx.dataStore.data.first()[K_READING_STREAK] ?: 0
-    val daysSince = (now - last) / (1000L * 60 * 60 * 24)
-    val newStreak = if (daysSince == 1L) streak + 1 else if (daysSince == 0L) streak else 1
-    ctx.dataStore.edit {
-        it[K_READING_STREAK] = newStreak
-        it[K_READING_LAST_DATE] = now
-    }
+        val now = System.currentTimeMillis()
+        val last = ctx.dataStore.data.first()[K_READING_LAST_DATE] ?: 0L
+        val streak = ctx.dataStore.data.first()[K_READING_STREAK] ?: 0
+        val daysSince = (now - last) / (1000L * 60 * 60 * 24)
+        val newStreak = when {
+            daysSince == 0L -> streak
+            daysSince == 1L -> streak + 1
+            else -> 1
+        }
+        ctx.dataStore.edit { prefs ->
+            prefs[K_READING_STREAK] = newStreak
+            prefs[K_READING_LAST_DATE] = now
+        }
     }
 
     suspend fun getNextPrayer(): String? {
-    val times = computeTimes() ?: return null
-    val now = Calendar.getInstance()
-    val nowMin = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE)
-    fun toMin(h: Double): Int = (h * 60).toInt()
-    val prayers = listOf(
-        "Fajr" to toMin(times.fajr),
-        "Dhuhr" to toMin(times.dhuhr),
-        "Asr" to toMin(times.asr),
-        "Maghrib" to toMin(times.maghrib),
-        "Isha" to toMin(times.isha)
-    )
-    val next = prayers.firstOrNull { it.second > nowMin } ?: return "Fajr at ${minToHm(prayers[0].second)} tomorrow"
-    val deltaMin = next.second - nowMin
-    val hm = "${deltaMin / 60}h ${deltaMin % 60}m"
-    return "${next.first} in $hm  -  ${minToHm(next.second)}"
+        val times = computeTimes() ?: return null
+        val now = Calendar.getInstance()
+        val nowMin = now.get(Calendar.HOUR_OF_DAY) * 60 + now.get(Calendar.MINUTE)
+        fun toMin(h: Double): Int = (h * 60).toInt()
+        val prayers = listOf(
+            "Fajr" to toMin(times.fajr),
+            "Dhuhr" to toMin(times.dhuhr),
+            "Asr" to toMin(times.asr),
+            "Maghrib" to toMin(times.maghrib),
+            "Isha" to toMin(times.isha)
+        )
+        val nextEntry = prayers.firstOrNull { it.second > nowMin }
+        if (nextEntry == null) {
+            return "Fajr at ${minToHm(prayers[0].second)} tomorrow"
+        }
+        val deltaMin = nextEntry.second - nowMin
+        val hm = "${deltaMin / 60}h ${deltaMin % 60}m"
+        return "${nextEntry.first} in $hm  -  ${minToHm(nextEntry.second)}"
     }
 
     private fun minToHm(min: Int): String {
-    val h = min / 60
-    val m = min % 60
-    val ampm = if (h >= 12) "PM" else "AM"
-    val hh = ((h + 11) % 12) + 1
-    return "%d:%02d %s".format(hh, m, ampm)
+        val h = min / 60
+        val m = min % 60
+        val ampm = if (h >= 12) "PM" else "AM"
+        val hh = ((h + 11) % 12) + 1
+        return "%d:%02d %s".format(hh, m, ampm)
     }
 }
