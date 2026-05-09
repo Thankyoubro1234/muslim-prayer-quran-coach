@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <string name="app_name">Muslim Prayer &amp; Quran Coach</string>
+    <string name="settings">Settings</string>
+
+    <string name="onboarding_title">Welcome to your Quran Coach</string>
+    <string name="onboarding_subtitle">Track your daily Quran reading, memorize with confidence, and never miss a prayer.</string>
+    <string name="onboarding_cta">Allow location and continue</string>
+
+    <string name="tab_prayer">Prayer</string>
+    <string name="tab_qibla">Qibla</string>
+    <string name="tab_quran">Quran</string>
+    <string name="tab_coach">Coach</string>
+    <string name="tab_memorize">Memorize</string>
+
+    <string name="next_prayer">Next prayer</string>
+    <string name="fajr">Fajr</string>
+    <string name="sunrise">Sunrise</string>
+    <string name="dhuhr">Dhuhr</string>
+    <string name="asr">Asr</string>
+    <string name="maghrib">Maghrib</string>
+    <string name="isha">Isha</string>
+
+    <string name="qibla_title">Qibla compass</string>
+    <string name="qibla_calibration_needed">Wave your phone in a figure 8 to calibrate the compass</string>
+    <string name="qibla_accuracy_high">Compass accuracy is high</string>
+    <string name="qibla_accuracy_medium">Compass accuracy is medium</string>
+    <string name="qibla_accuracy_low">Compass accuracy is low. Move away from metal objects and calibrate.</string>
+
+    <string name="quran_title">The Holy Quran</string>
+    <string name="quran_subtitle">All 114 surahs with modern English translation and audio recitation</string>
+    <string name="quran_play">Play</string>
+    <string name="quran_pause">Pause</string>
+    <string name="quran_pick_reciter">Pick a reciter</string>
+    <string name="quran_loading">Loading verses…</string>
+    <string name="quran_offline_warning">Internet needed for Quran audio and translations</string>
+
+    <string name="notif_mode">Notification mode</string>
+    <string name="notif_mode_full">Full Adhan audio</string>
+    <string name="notif_mode_silent">Silent (visual only)</string>
+    <string name="notif_mode_vibrate">Vibration only</string>
+    <string name="notif_mode_beep">Soft beep</string>
+
+    <string name="adhan_voice_title">Adhan voice</string>
+    <string name="adhan_makkah">Sheikh Ali Mullah of Makkah</string>
+    <string name="adhan_madinah">Sheikh Abdul Hamid of Madinah</string>
+    <string name="adhan_mishary">Sheikh Mishary Rashid Alafasy</string>
+    <string name="adhan_preview">Preview</string>
+    <string name="adhan_stop">Stop</string>
+    <string name="admob_banner_id">ca-app-pub-2012443180374388/9390983478</string>
+</resources>

@@ -1,0 +1,18 @@
+<?xml version="1.0" encoding="utf-8"?>
+<menu xmlns:android="http://schemas.android.com/apk/res/android">
+    <item android:id="@+id/tab_coach"
+        android:icon="@drawable/ic_coach"
+        android:title="@string/tab_coach"/>
+    <item android:id="@+id/tab_prayer"
+        android:icon="@drawable/ic_prayer"
+        android:title="@string/tab_prayer"/>
+    <item android:id="@+id/tab_quran"
+        android:icon="@drawable/ic_quran"
+        android:title="@string/tab_quran"/>
+    <item android:id="@+id/tab_memorize"
+        android:icon="@drawable/ic_memorize"
+        android:title="@string/tab_memorize"/>
+    <item android:id="@+id/tab_settings"
+        android:icon="@drawable/ic_settings"
+        android:title="@string/settings"/>
+</menu>
