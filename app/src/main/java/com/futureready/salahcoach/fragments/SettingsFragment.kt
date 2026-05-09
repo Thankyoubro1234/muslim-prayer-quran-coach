@@ -46,7 +46,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
         }
 
         findPreference<Preference>("share_app")?.setOnPreferenceClickListener {
-            val text = "Try Qibla Salah Times — accurate prayer times, the full Holy Quran with audio, and a hyper accurate Qibla compass.\n\nhttps://coworkster.com/qibla-salah-times/qibla-salah-times.apk"
+            val text = "Try Muslim Prayer & Quran Coach — accurate prayer times, daily Quran reading goals, memorization tracker, and beautiful audio recitation.\n\nhttps://play.google.com/store/apps/details?id=com.futureready.salahcoach"
             startActivity(Intent.createChooser(
                 Intent(Intent.ACTION_SEND).setType("text/plain").putExtra(Intent.EXTRA_TEXT, text),
                 "Share app"))
@@ -62,7 +62,7 @@ class SettingsFragment : PreferenceFragmentCompat() {
             "${BuildConfig.VERSION_NAME} (build ${BuildConfig.VERSION_CODE})"
         findPreference<Preference>("open_source")?.setOnPreferenceClickListener {
             startActivity(Intent(Intent.ACTION_VIEW,
-                Uri.parse("https://github.com/Thankyoubro1234/qibla-salah-times")))
+                Uri.parse("https://github.com/Thankyoubro1234/muslim-prayer-quran-coach")))
             true
         }
     }

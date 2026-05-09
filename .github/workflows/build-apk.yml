@@ -45,13 +45,13 @@ jobs:
       - name: Upload debug APK
         uses: actions/upload-artifact@v4
         with:
-          name: QiblaSalahTimes-debug
+          name: MuslimPrayerCoach-debug
           path: app/build/outputs/apk/debug/*.apk
           retention-days: 30
 
       - name: Upload release AAB
         uses: actions/upload-artifact@v4
         with:
-          name: QiblaSalahTimes-release-aab
+          name: MuslimPrayerCoach-release-aab
           path: app/build/outputs/bundle/release/*.aab
           retention-days: 30

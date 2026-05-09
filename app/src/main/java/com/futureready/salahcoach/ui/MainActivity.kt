@@ -8,8 +8,9 @@ import androidx.lifecycle.lifecycleScope
 import com.google.android.material.bottomnavigation.BottomNavigationView
 import com.futureready.salahcoach.PrayerPilotApp
 import com.futureready.salahcoach.R
+import com.futureready.salahcoach.fragments.CoachFragment
+import com.futureready.salahcoach.fragments.MemorizeFragment
 import com.futureready.salahcoach.fragments.PrayerFragment
-import com.futureready.salahcoach.fragments.QiblaFragment
 import com.futureready.salahcoach.fragments.QuranFragment
 import com.futureready.salahcoach.fragments.SettingsFragment
 import kotlinx.coroutines.launch
@@ -32,17 +33,18 @@ class MainActivity : AppCompatActivity() {
         val nav = findViewById<BottomNavigationView>(R.id.bottom_nav)
         nav.setOnItemSelectedListener { item ->
             val frag: Fragment = when (item.itemId) {
+                R.id.tab_coach -> CoachFragment()
                 R.id.tab_prayer -> PrayerFragment()
-                R.id.tab_qibla -> QiblaFragment()
                 R.id.tab_quran -> QuranFragment()
+                R.id.tab_memorize -> MemorizeFragment()
                 R.id.tab_settings -> SettingsFragment()
-                else -> PrayerFragment()
+                else -> CoachFragment()
             }
             supportFragmentManager.beginTransaction()
                 .setCustomAnimations(R.anim.fade_in, R.anim.fade_out)
                 .replace(R.id.fragment_container, frag).commit()
             true
         }
-        if (savedInstanceState == null) nav.selectedItemId = R.id.tab_prayer
+        if (savedInstanceState == null) nav.selectedItemId = R.id.tab_coach
     }
 }

@@ -1,0 +1,49 @@
+<?xml version="1.0" encoding="utf-8"?>
+<com.google.android.material.card.MaterialCardView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="wrap_content"
+    android:layout_marginBottom="10dp"
+    app:cardCornerRadius="16dp"
+    app:cardElevation="2dp"
+    app:cardBackgroundColor="@color/bg_card_dark"
+    android:foreground="?attr/selectableItemBackground"
+    android:clickable="true"
+    android:focusable="true">
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:orientation="horizontal"
+            android:gravity="center_vertical">
+
+            <TextView
+                android:id="@+id/juz_title"
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:textColor="@color/text_primary_dark"
+                android:textSize="18sp"
+                android:textStyle="bold"
+                android:text="Juz 1"/>
+
+            <TextView
+                android:id="@+id/juz_sub"
+                android:layout_width="wrap_content" android:layout_height="wrap_content"
+                android:textColor="@color/coach_gold_light"
+                android:textSize="14sp"
+                android:text="0 / 148 verses"/>
+        </LinearLayout>
+
+        <ProgressBar
+            android:id="@+id/juz_progress"
+            style="@android:style/Widget.ProgressBar.Horizontal"
+            android:layout_width="match_parent" android:layout_height="8dp"
+            android:layout_marginTop="10dp"
+            android:progressTint="@color/coach_gold"
+            android:max="100"
+            android:progress="0"/>
+    </LinearLayout>
+</com.google.android.material.card.MaterialCardView>

@@ -1,0 +1,192 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.core.widget.NestedScrollView xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    android:layout_width="match_parent" android:layout_height="match_parent"
+    android:fillViewport="true"
+    android:background="@drawable/bg_aurora">
+
+    <LinearLayout
+        android:layout_width="match_parent" android:layout_height="wrap_content"
+        android:orientation="vertical"
+        android:padding="16dp">
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:textColor="@color/text_secondary_dark"
+            android:textSize="14sp"
+            android:id="@+id/coach_today"
+            android:text="Today"/>
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:textColor="@color/text_primary_dark"
+            android:textSize="28sp"
+            android:textStyle="bold"
+            android:layout_marginTop="2dp"
+            android:text="Assalamu alaikum"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="20dp"
+            app:cardCornerRadius="22dp"
+            app:cardElevation="6dp"
+            app:cardBackgroundColor="@color/coach_purple">
+
+            <LinearLayout
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:textColor="@color/coach_gold"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:text="VERSE OF THE DAY"/>
+
+                <TextView
+                    android:id="@+id/coach_ayah"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="10dp"
+                    android:textColor="#FFFFFF"
+                    android:textSize="17sp"
+                    android:lineSpacingExtra="4sp"
+                    android:text="—"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            app:cardCornerRadius="20dp"
+            app:cardElevation="4dp"
+            app:cardBackgroundColor="@color/bg_card_dark">
+
+            <LinearLayout
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="20dp">
+
+                <TextView
+                    android:layout_width="wrap_content" android:layout_height="wrap_content"
+                    android:textColor="@color/coach_gold_light"
+                    android:textSize="14sp"
+                    android:textStyle="bold"
+                    android:text="NEXT PRAYER"/>
+
+                <TextView
+                    android:id="@+id/coach_next_prayer"
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:layout_marginTop="6dp"
+                    android:textColor="@color/text_primary_dark"
+                    android:textSize="22sp"
+                    android:textStyle="bold"
+                    android:text="—"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+        <LinearLayout
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="14dp"
+            android:orientation="horizontal">
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginEnd="6dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/bg_card_dark">
+
+                <LinearLayout
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:textColor="@color/coach_gold_light"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:text="READING"/>
+
+                    <TextView
+                        android:id="@+id/coach_streak"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/text_primary_dark"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:text="0 day streak"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+
+            <com.google.android.material.card.MaterialCardView
+                android:layout_width="0dp" android:layout_height="wrap_content"
+                android:layout_weight="1"
+                android:layout_marginStart="6dp"
+                app:cardCornerRadius="20dp"
+                app:cardElevation="4dp"
+                app:cardBackgroundColor="@color/bg_card_dark">
+
+                <LinearLayout
+                    android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:orientation="vertical"
+                    android:padding="18dp">
+
+                    <TextView
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:textColor="@color/coach_gold_light"
+                        android:textSize="13sp"
+                        android:textStyle="bold"
+                        android:text="MEMORIZED"/>
+
+                    <TextView
+                        android:id="@+id/coach_memorized"
+                        android:layout_width="wrap_content" android:layout_height="wrap_content"
+                        android:layout_marginTop="6dp"
+                        android:textColor="@color/text_primary_dark"
+                        android:textSize="18sp"
+                        android:textStyle="bold"
+                        android:text="0 verses"/>
+                </LinearLayout>
+            </com.google.android.material.card.MaterialCardView>
+        </LinearLayout>
+
+        <TextView
+            android:layout_width="wrap_content" android:layout_height="wrap_content"
+            android:layout_marginTop="22dp"
+            android:textColor="@color/text_primary_dark"
+            android:textSize="20sp"
+            android:textStyle="bold"
+            android:text="Daily Goals"/>
+
+        <com.google.android.material.card.MaterialCardView
+            android:layout_width="match_parent" android:layout_height="wrap_content"
+            android:layout_marginTop="10dp"
+            app:cardCornerRadius="18dp"
+            app:cardElevation="2dp"
+            app:cardBackgroundColor="@color/bg_card_dark">
+
+            <LinearLayout
+                android:layout_width="match_parent" android:layout_height="wrap_content"
+                android:orientation="vertical"
+                android:padding="18dp">
+
+                <CheckBox android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary_dark"
+                    android:text="Read 1 page of Quran"/>
+                <CheckBox android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary_dark"
+                    android:text="Pray all 5 daily prayers"/>
+                <CheckBox android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary_dark"
+                    android:text="Review one memorized verse"/>
+                <CheckBox android:layout_width="match_parent" android:layout_height="wrap_content"
+                    android:textColor="@color/text_primary_dark"
+                    android:text="Make dua for family"/>
+            </LinearLayout>
+        </com.google.android.material.card.MaterialCardView>
+
+    </LinearLayout>
+</androidx.core.widget.NestedScrollView>
